@@ -14,6 +14,9 @@ function Navbar(props) {
         <li>
           <NavLink to="/contacts">Contacs us</NavLink>
         </li>
+        <li>
+          <NavLink to="/adminRoom">Admin room</NavLink>
+        </li>
       </ul>
     </nav>
   );
