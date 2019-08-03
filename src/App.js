@@ -9,6 +9,7 @@ import Contacts from "./components/Contacts/Contacts";
 import Navbar from "./components/Navbar/Navbar";
 import Footer from "./components/Footer/Footer";
 import Article from "./components/Article/Article";
+import AdminRoom from "./containers/AdminRoom/AdminRoom";
 
 class App extends Component {
   componentDidMount() {
@@ -37,6 +38,7 @@ class App extends Component {
         <Route path="/" exact component={Homepage} />
         <Route path="/contacts" component={Contacts} />
         <Route path="/article" component={Article} />
+        <Route path="/adminRoom" component={AdminRoom} />
         <Footer />
       </div>
     );
