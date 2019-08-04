@@ -1,14 +1,15 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 
 import axios from "../../axios";
 import classes from "./AdminRoom.module.css";
 
 class AdminRoom extends Component {
   state = {
-    auth: false,
     login: null,
     password: null,
-    admins: null
+    admins: null,
+    adminName: "Admin"
   };
 
   checkingInputs = event => {
@@ -25,21 +26,16 @@ class AdminRoom extends Component {
 
   logIn = () => {
     this.state.admins.forEach(admin => {
-      console.log(admin);
-
       if (
         admin.password === this.state.password &&
         admin.login === this.state.login
       ) {
-        console.log(true);
-
+        this.props.onAuth(true);
         this.setState({
-          auth: true
+          adminName: admin.login
         });
       } else {
-        this.setState({
-          auth: false
-        });
+        this.props.onAuth(false);
       }
     });
   };
@@ -67,7 +63,7 @@ class AdminRoom extends Component {
 
   render() {
     let authClassName = classes.auth_false;
-    this.state.auth
+    this.props.auth
       ? (authClassName = classes.auth_true)
       : (authClassName = classes.auth_false);
 
@@ -99,12 +95,16 @@ class AdminRoom extends Component {
             </button>
           </div>
         </div>
-        <h2>Welcome to Admin room</h2>
+        <h2>Welcome {this.state.adminName}</h2>
         <h3>Create article</h3>
         <div className={classes.form}>
           <label htmlFor="title">
             Article title
             <input type="text" name="title" required />
+          </label>
+          <label htmlFor="callout">
+            Article callout
+            <input type="text" name="callout" required />
           </label>
           <label htmlFor="description">
             Article description
@@ -120,4 +120,19 @@ class AdminRoom extends Component {
   }
 }
 
-export default AdminRoom;
+const mapDispatchToProps = dispatch => {
+  return {
+    onAuth: auth => dispatch({ type: "AUTH", auth })
+  };
+};
+
+const mapStateToProps = state => {
+  return {
+    auth: state.auth
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(AdminRoom);

@@ -1,6 +1,7 @@
 const initialState = {
-  data: null,
-  articleID: null
+  articleID: null,
+  auth: false,
+  data: null
 };
 
 const reducer = (state = initialState, action) => {
@@ -14,6 +15,11 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         articleID: state.data[action.id - 1]
+      };
+    case "AUTH":
+      return {
+        ...state,
+        auth: action.auth
       };
     default:
       return {
