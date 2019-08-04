@@ -37,3 +37,22 @@
   align-items: center;
   z-index: 50;
 }
+
+.AdminRoom .img_priview_empty {
+  min-height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px dotted black;
+}
+
+.AdminRoom .img_priview {
+  min-height: 200px;
+  display: flex;
+}
+
+.AdminRoom .img_priview img {
+  max-width: 200px;
+  max-height: 200px;
+  margin: 2px;
+}
