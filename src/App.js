@@ -14,7 +14,7 @@ import AdminRoom from "./containers/AdminRoom/AdminRoom";
 class App extends Component {
   componentDidMount() {
     axios
-      .get("/photos.json")
+      .get("/articles.json")
       .then(response => {
         console.log(response.data);
         let arr = [];
