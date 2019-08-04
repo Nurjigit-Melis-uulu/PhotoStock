@@ -3,6 +3,10 @@
   height: 40px;
   background: #000;
   box-shadow: 0 0 6px rgba(68, 68, 68, 0.2);
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 51;
 }
 
 .Navbar ul {
