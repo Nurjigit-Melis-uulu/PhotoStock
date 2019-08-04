@@ -11,17 +11,36 @@ class AdminRoom extends Component {
     admins: null,
     adminName: "Admin",
     imgURL: null,
-    imgURLs: null
+    imgURLs: null,
+    newTitle: null,
+    newCallout: null,
+    newDescrip: null
   };
 
   checkingInputs = event => {
-    if (event.target.name === "login") {
+    let inputName = event.target.name;
+    let inputValue = event.target.value;
+    if (inputName === "login") {
       this.setState({
-        login: event.target.value
+        login: inputValue
       });
     } else {
       this.setState({
-        password: event.target.value
+        password: inputValue
+      });
+    }
+
+    if (inputName === "title") {
+      this.setState({
+        newTitle: inputValue
+      });
+    } else if (inputName === "callout") {
+      this.setState({
+        newCallout: inputValue
+      });
+    } else if (inputName === "description") {
+      this.setState({
+        newDescrip: inputValue
       });
     }
   };
@@ -58,7 +77,6 @@ class AdminRoom extends Component {
         imgURL: event.target.value
       });
     }
-    console.log(this.state.imgURL);
   };
 
   imgPriview = () => {
@@ -83,6 +101,42 @@ class AdminRoom extends Component {
         });
       }
     }
+  };
+
+  postArticle = () => {
+    let today = new Date();
+    let dd = String(today.getDate()).padStart(2, "0");
+    let mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
+    let yyyy = today.getFullYear();
+
+    today = mm + "-" + dd + "-" + yyyy;
+
+    const newArticle = {
+      title: this.state.newTitle,
+      description: this.state.newDescrip,
+      callout: this.state.newCallout,
+      img: this.state.imgURLs[0],
+      date: today,
+      id: this.props.data.length + 1
+    };
+
+    console.log(
+      this.state.newTitle,
+      this.state.newDescrip,
+      this.state.newCallout,
+      this.state.imgURLs[0],
+      today,
+      this.props.data.length + 1
+    );
+
+    axios
+      .post("articles.json", newArticle)
+      .then(response => {
+        this.props.history.replace("/");
+      })
+      .catch(error => {
+        this.props.history.replace("/");
+      });
   };
 
   componentDidMount() {
@@ -130,7 +184,7 @@ class AdminRoom extends Component {
           <h2>please log in!</h2>
           <div className={classes.form}>
             <label htmlFor="login">
-              Login*
+              Username*
               <input
                 type="text"
                 name="login"
@@ -157,15 +211,31 @@ class AdminRoom extends Component {
         <div className={classes.form}>
           <label htmlFor="title">
             Article title
-            <input type="text" name="title" required />
+            <input
+              type="text"
+              name="title"
+              required
+              onChange={this.checkingInputs}
+            />
           </label>
           <label htmlFor="callout">
             Article callout
-            <input type="text" name="callout" required />
+            <input
+              type="text"
+              name="callout"
+              required
+              onChange={this.checkingInputs}
+            />
           </label>
           <label htmlFor="description">
             Article description
-            <textarea rows="10" cols="10" name="description" />
+            <textarea
+              rows="10"
+              cols="10"
+              name="description"
+              required
+              onChange={this.checkingInputs}
+            />
           </label>
           <label htmlFor="imgURL">
             Set image URL
@@ -181,6 +251,7 @@ class AdminRoom extends Component {
           </label>
         </div>
         <div className={imagePriviewClassName}>{images}</div>
+        <button onClick={this.postArticle}>Create</button>
       </div>
     );
   }
@@ -194,7 +265,8 @@ const mapDispatchToProps = dispatch => {
 
 const mapStateToProps = state => {
   return {
-    auth: state.auth
+    auth: state.auth,
+    data: state.data
   };
 };
 
