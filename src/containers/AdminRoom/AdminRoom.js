@@ -109,7 +109,7 @@ class AdminRoom extends Component {
     let mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
     let yyyy = today.getFullYear();
 
-    today = mm + "-" + dd + "-" + yyyy;
+    today = yyyy + "-" + mm + "-" + dd;
 
     const newArticle = {
       title: this.state.newTitle,
@@ -119,15 +119,6 @@ class AdminRoom extends Component {
       date: today,
       id: this.props.data.length + 1
     };
-
-    console.log(
-      this.state.newTitle,
-      this.state.newDescrip,
-      this.state.newCallout,
-      this.state.imgURLs[0],
-      today,
-      this.props.data.length + 1
-    );
 
     axios
       .post("articles.json", newArticle)

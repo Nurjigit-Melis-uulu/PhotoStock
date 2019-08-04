@@ -14,7 +14,7 @@ const reducer = (state = initialState, action) => {
     case "SEND_ID":
       return {
         ...state,
-        articleID: state.data[action.id - 1]
+        articleID: action.id
       };
     case "AUTH":
       return {

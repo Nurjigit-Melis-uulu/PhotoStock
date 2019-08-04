@@ -9,13 +9,17 @@ function Article(props) {
   let article = <article>No Article</article>;
 
   if (props.articleID) {
-    article = (
-      <article>
-        <img src={props.articleID.img} alt="" />
-        <h2>{props.articleID.title}</h2>
-        <p>{props.articleID.description}</p>
-      </article>
-    );
+    props.data.forEach(element => {
+      if (element.id === props.articleID) {
+        article = (
+          <article>
+            <img src={element.img} alt="" />
+            <h2>{element.title}</h2>
+            <p>{element.description}</p>
+          </article>
+        );
+      }
+    });
   } else {
     article = (
       <article>
@@ -29,7 +33,8 @@ function Article(props) {
 
 const mapStateToProps = state => {
   return {
-    articleID: state.articleID
+    articleID: state.articleID,
+    data: state.data
   };
 };
 
