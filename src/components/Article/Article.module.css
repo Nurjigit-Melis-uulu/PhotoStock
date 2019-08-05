@@ -1,0 +1,11 @@
+.Article img {
+  width: 100%;
+  height: 600px;
+}
+
+.Article article {
+  max-width: 1200px;
+  box-sizing: border-box;
+  padding: 40px 10px 0;
+  margin: 0 auto;
+}
