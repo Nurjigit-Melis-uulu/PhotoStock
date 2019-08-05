@@ -1,12 +1,17 @@
 import React from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 
 import classes from "./Article.module.css";
 
 function Article(props) {
   // console.log(props.articleID);
 
-  let article = <article>No Article</article>;
+  let article = (
+    <article>
+      No Article <Link to="/">Back to home</Link>
+    </article>
+  );
 
   if (props.articleID) {
     props.data.forEach(element => {
@@ -23,7 +28,9 @@ function Article(props) {
   } else {
     article = (
       <article>
-        <h2>No Article</h2>
+        <h2>
+          No Article <Link to="/">Back to home</Link>
+        </h2>
       </article>
     );
   }
