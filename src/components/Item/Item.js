@@ -22,7 +22,9 @@ function Item(props) {
               Read more
             </Link>
           </p>
-          <small>{props.date}</small>
+          <div className={classes.date}>
+            <small>{props.date}</small>
+          </div>
         </div>
       </div>
     </div>

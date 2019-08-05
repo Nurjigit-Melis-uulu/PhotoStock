@@ -1,6 +1,6 @@
 .Homepage header {
   width: 100%;
-  height: 100vh;
+  height: 400px;
   background: linear-gradient(45deg, rgb(156, 9, 9), rgb(13, 16, 168));
   color: white;
   display: flex;
